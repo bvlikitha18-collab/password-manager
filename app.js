@@ -37,4 +37,21 @@ app.delete('/delete/:id', (req, res) => {
     res.send("Deleted");
 });
 
+// ✅ UPDATE (v2 FEATURE)
+app.put('/update/:index', (req, res) => {
+    let data = readData();
+
+    const index = req.params.index;
+    const { site, username, password } = req.body;
+
+    if (data[index]) {
+        data[index] = { site, username, password };
+        writeData(data);
+        res.send("Updated");
+    } else {
+        res.send("Invalid index");
+    }
+});
+
+// Start server (KEEP AT END)
 app.listen(3000, () => console.log("Running on port 3000"));
